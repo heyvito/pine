@@ -1,0 +1,15 @@
+language: go
+
+go:
+  - 1.7
+  - 1.8
+
+before_install:
+  - go get golang.org/x/tools/cmd/cover github.com/logrusorgru/aurora
+  - go generate
+
+script:
+  - go test -v -covermode=atomic -coverprofile=coverage.txt
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
