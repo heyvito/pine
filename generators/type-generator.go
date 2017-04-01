@@ -56,6 +56,15 @@ func generateEmojiMappings(items map[string]string) {
 		fmt.Fprint(buffer, value)
 		fmt.Fprint(buffer, "\",\n")
 	}
+	fmt.Fprint(buffer, "}\n\n")
+	fmt.Fprint(buffer, "var typeMap = map[msgType]string{\n")
+	for key := range items {
+		fmt.Fprint(buffer, "\t")
+		fmt.Fprint(buffer, key)
+		fmt.Fprint(buffer, ": \"")
+		fmt.Fprint(buffer, key)
+		fmt.Fprint(buffer, "\",\n")
+	}
 	fmt.Fprint(buffer, "}\n")
 	if err := ioutil.WriteFile("generated_emoji_types.go", buffer.Bytes(), 0644); err != nil {
 		panic(err)
@@ -130,6 +139,7 @@ func generateExpectedOutput(module, msg, emoji string, extra *string) string {
 func TestMain(m *testing.M) {
 	pine.outputProvider = testOutputProvider
 	pine.timeProvider = testTimeProvider
+	pine.formatProvider = ttyFormatProvider
 	os.Exit(m.Run())
 }
 

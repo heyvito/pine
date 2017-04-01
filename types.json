@@ -1,22 +1,12 @@
 {
-    "OK":        "✅",
+    "Success":   "✅",
     "Warn":      "⚠️",
-    "Issue":     "🐛",
     "Error":     "🚨",
-    "Input":     "🔺",
-    "Output":    "🔻",
-    "Send":      "📤",
-    "Receive":   "📥",
-    "Fetch":     "📡",
     "Finish":    "🏁",
-    "Launch":    "🚀",
     "Terminate": "⛔️",
     "Spawn":     "✨",
-    "Broadcast": "📣",
     "Disk":      "💾",
     "Timing":    "⏱",
-    "Money":     "💰",
-    "Numbers":   "🔢",
     "WTF":       "👻",
     "Info":      "💬"
 }
