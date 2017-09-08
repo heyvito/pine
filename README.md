@@ -13,7 +13,7 @@
 but at least there's Emojis and color. 🙌
 
 <p align="center">
-<img src="https://www.dropbox.com/s/qg1442vfkmfbgar/pine.png?dl=1" />
+<img src="https://i.imgur.com/4D9ATE7.png" />
 </p>
 
 ## Installing
