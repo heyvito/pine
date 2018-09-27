@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/logrusorgru/aurora"
+	"github.com/mattn/go-colorable"
 )
 
 type msgType int
@@ -63,9 +64,11 @@ func (p *PineWriter) WithExtra(extra string) *PineExtraWriter {
 	}
 }
 
+var stdout = colorable.NewColorableStdout()
+
 var pine = &Pine{
 	timeProvider:   func() time.Time { return time.Now() },
-	outputProvider: func(msg string) { fmt.Print(msg) },
+	outputProvider: func(msg string) { fmt.Fprint(stdout, msg) },
 }
 
 func ttyFormatProvider(at time.Time, t msgType, module string, extra *string, msg string, params ...interface{}) string {
