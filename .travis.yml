@@ -6,7 +6,6 @@ go:
 
 before_install:
   - go get golang.org/x/tools/cmd/cover github.com/logrusorgru/aurora
-  - go generate
 
 script:
   - go test -v -covermode=atomic -coverprofile=coverage.txt
