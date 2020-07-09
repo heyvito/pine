@@ -3,10 +3,9 @@
     🌲 A completely useless (but cute) logger for Golang ✨
 </p>
 <p align="center">
-<a href="https://godoc.org/github.com/victorgama/pine"><img src="https://godoc.org/github.com/victorgama/pine?status.svg" alt="GoDoc"></a>
-<a href="https://travis-ci.org/victorgama/pine"><img src="https://travis-ci.org/victorgama/pine.svg?branch=master" /></a>
-<a href="https://codecov.io/gh/victorgama/pine"><img src="https://codecov.io/gh/victorgama/pine/branch/master/graph/badge.svg" alt="Codecov" /></a>
-<a href="https://goreportcard.com/report/github.com/victorgama/pine"><img src="https://goreportcard.com/badge/github.com/victorgama/pine" /></a>
+<a href="https://godoc.org/github.com/heyvito/pine"><img src="https://godoc.org/github.com/heyvito/pine?status.svg" alt="GoDoc"></a>
+<img src="https://github.com/heyvito/pine/workflows/Build/badge.svg" />
+<a href="https://goreportcard.com/report/github.com/heyvito/pine"><img src="https://goreportcard.com/badge/github.com/heyvito/pine" /></a>
 </p>
 
 **Pine** is a completely useless (but cute) logger for Golang. Its output may not be ideal to parse,
@@ -20,13 +19,13 @@ but at least there's Emojis and color. 🙌
 1. Download and install it
 
 ```bash
-$ go get -u github.com/victorgama/pine
+$ go get -u github.com/heyvito/pine
 ```
 
 2. Import it in your code:
 
 ```go
-import "github.com/victorgama/pine"
+import "github.com/heyvito/pine"
 ```
 
 ## Usage
@@ -56,6 +55,8 @@ emoji. The following methods (and their emojis) are available:
 | Numbers   |   🔢  |
 | WTF       |   👻  |
 | Info      |   💬  |
+| Lock      |   🔒  |
+| Secure    |   🔑  |
 
 For instance, the following snippet:
 
