@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"hash/adler32"
 	"io/ioutil"
-	"math/rand"
+	"sort"
 )
 
 func main() {
@@ -17,17 +18,25 @@ func main() {
 	if err := json.Unmarshal(data, &items); err != nil {
 		panic(err)
 	}
-	generateTypes(items)
-	generateEmojiMappings(items)
-	generateFunctions(items)
-	generateTests(items)
+	keys := []string{}
+
+	for k := range items {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+
+	generateTypes(keys)
+	generateEmojiMappings(keys, items)
+	generateFunctions(keys)
+	generateTests(keys, items)
 }
 
-func generateTypes(items map[string]string) {
+func generateTypes(keys []string) {
 	buffer := bytes.NewBuffer(nil)
 	fmt.Fprint(buffer, "package pine\n\nconst (")
 	first := true
-	for key := range items {
+	for _, key := range keys {
 		if first {
 			fmt.Fprint(buffer, "\t")
 			fmt.Fprint(buffer, key)
@@ -45,20 +54,20 @@ func generateTypes(items map[string]string) {
 	}
 }
 
-func generateEmojiMappings(items map[string]string) {
+func generateEmojiMappings(keys []string, items map[string]string) {
 	buffer := bytes.NewBuffer(nil)
 	fmt.Fprint(buffer, "package pine\n\nvar typeEmoji = map[msgType]string{\n")
 
-	for key, value := range items {
+	for _, key := range keys {
 		fmt.Fprint(buffer, "\t")
 		fmt.Fprint(buffer, key)
 		fmt.Fprint(buffer, ": \"")
-		fmt.Fprint(buffer, value)
+		fmt.Fprint(buffer, items[key])
 		fmt.Fprint(buffer, "\",\n")
 	}
 	fmt.Fprint(buffer, "}\n\n")
 	fmt.Fprint(buffer, "var typeMap = map[msgType]string{\n")
-	for key := range items {
+	for _, key := range keys {
 		fmt.Fprint(buffer, "\t")
 		fmt.Fprint(buffer, key)
 		fmt.Fprint(buffer, ": \"")
@@ -71,17 +80,19 @@ func generateEmojiMappings(items map[string]string) {
 	}
 }
 
-func generateFunctions(items map[string]string) {
+func generateFunctions(keys []string) {
 	buffer := bytes.NewBuffer(nil)
 	fmt.Fprint(buffer, "package pine\n\n")
+	fmt.Fprint(buffer, "import \"os\"\n\n")
 
 	fmt.Fprintf(buffer, "type Writer interface{\n")
-	for key := range items {
+	for _, key := range keys {
 		fmt.Fprintf(buffer, "\t%s(msg string, params ...interface{})\n", key)
 	}
+	fmt.Fprintf(buffer, "\tFatal(msg string, params ...interface{})\n")
 	fmt.Fprintf(buffer, "}\n\n")
 
-	for key := range items {
+	for _, key := range keys {
 		fmt.Fprintf(buffer, "func (w *PineWriter) %s(msg string, params ...interface{}) {\n", key)
 		fmt.Fprintf(buffer, "\tw.parent.write(%s, w.name, nil, msg, params...)\n", key)
 		fmt.Fprint(buffer, "}\n\n")
@@ -95,12 +106,25 @@ func generateFunctions(items map[string]string) {
 		fmt.Fprint(buffer, "}\n\n")
 
 	}
+
+	fmt.Fprintf(buffer, "func (w *PineWriter) Fatal(msg string, params ...interface{}) {\n")
+	fmt.Fprintf(buffer, "\tw.Error(msg, params...)\n")
+	fmt.Fprintf(buffer, "\tos.Exit(1)\n")
+	fmt.Fprint(buffer, "}\n\n")
+	fmt.Fprintf(buffer, "func (w *PineWriter) FatalExtra(extra, msg string, params ...interface{}) {\n")
+	fmt.Fprintf(buffer, "\tw.ErrorExtra(extra, msg, params...)\n")
+	fmt.Fprintf(buffer, "\tos.Exit(1)\n")
+	fmt.Fprint(buffer, "}\n\n")
+	fmt.Fprintf(buffer, "func (w *PineExtraWriter) Fatal(msg string, params ...interface{}) {\n")
+	fmt.Fprintf(buffer, "\tw.parent.FatalExtra(w.extra, msg, params...)\n")
+	fmt.Fprint(buffer, "}\n\n")
+
 	if err := ioutil.WriteFile("generated_functions.go", buffer.Bytes(), 0644); err != nil {
 		panic(err)
 	}
 }
 
-func generateTests(items map[string]string) {
+func generateTests(keys []string, items map[string]string) {
 	buffer := bytes.NewBuffer(nil)
 	fmt.Fprintf(buffer, `package pine
 
@@ -175,18 +199,19 @@ func TestMain(m *testing.M) {
 		fmt.Fprint(buffer, "\t}\n")
 	}
 
-	for key, value := range items {
-
+	for _, key := range keys {
+		i := uint32(0)
 		fmt.Fprintf(buffer, "func TestBasic%s(t *testing.T) {\n", key)
-		writeBasicTest(randStringRunes(5), randStringRunes(5), key, value, randStringRunes(5))
+		kind := "Basic"
+		writeBasicTest(testValue(items[key], kind, &i), testValue(items[key], kind, &i), key, items[key], testValue(items[key], kind, &i))
 		fmt.Fprint(buffer, "}\n\n")
 
 		fmt.Fprintf(buffer, "func TestExtra%s(t *testing.T) {\n", key)
-		writeExtraTest(randStringRunes(5), randStringRunes(5), key, value, randStringRunes(5), randStringRunes(5))
+		writeExtraTest(testValue(items[key], kind, &i), testValue(items[key], kind, &i), key, items[key], testValue(items[key], kind, &i), testValue(items[key], kind, &i))
 		fmt.Fprint(buffer, "}\n\n")
 
 		fmt.Fprintf(buffer, "func TestExtraWriter%s(t *testing.T) {\n", key)
-		writeExtraWriterTest(randStringRunes(5), randStringRunes(5), key, value, randStringRunes(5), randStringRunes(5))
+		writeExtraWriterTest(testValue(items[key], kind, &i), testValue(items[key], kind, &i), key, items[key], testValue(items[key], kind, &i), testValue(items[key], kind, &i))
 		fmt.Fprint(buffer, "}\n\n")
 	}
 	if err := ioutil.WriteFile("generated_test.go", buffer.Bytes(), 0644); err != nil {
@@ -194,12 +219,12 @@ func TestMain(m *testing.M) {
 	}
 }
 
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
-func randStringRunes(n int) string {
-	b := make([]rune, n)
-	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
-	}
-	return string(b)
+func testValue(emoji, kind string, i *uint32) string {
+	iv := fmt.Sprintf("%d", *i)
+	p := adler32.Checksum([]byte(emoji + kind + iv))
+	*i = (*i) + 1
+	a := p >> 24 & 0xFF
+	b := p >> 16 & 0xFF
+	c := p >> 8 & 0xFF
+	return fmt.Sprintf("%02x%02x%02x", a, b, c)
 }

@@ -1,14 +1,18 @@
 {
-    "Success":   "✅",
-    "Warn":      "⚠️",
-    "Error":     "🚨",
-    "Finish":    "🏁",
-    "Terminate": "⛔️",
-    "Spawn":     "✨",
-    "Disk":      "💾",
-    "Timing":    "⏱",
-    "WTF":       "👻",
+    "Bug":       "🐞",
+    "Disk":      "📀",
+    "Error":     "🛑",
+    "Finish":    "🆗",
     "Info":      "💬",
     "Lock":      "🔒",
-    "Secure":    "🔑"
+    "Plug":      "🔌",
+    "Secure":    "🔑",
+    "Sleep":     "💤",
+    "Spawn":     "✨",
+    "Success":   "🟢",
+    "Terminate": "⭕",
+    "Thread":    "🧵",
+    "Timing":    "⏱",
+    "Warn":      "🟡",
+    "WTF":       "👻"
 }

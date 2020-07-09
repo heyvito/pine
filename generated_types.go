@@ -1,16 +1,20 @@
 package pine
 
 const (
-	Warn msgType = iota
+	Bug msgType = iota
+	Disk
+	Error
 	Finish
-	Spawn
-	Timing
 	Info
+	Lock
+	Plug
+	Secure
+	Sleep
+	Spawn
 	Success
 	Terminate
-	Disk
+	Thread
+	Timing
 	WTF
-	Lock
-	Secure
-	Error
+	Warn
 )
