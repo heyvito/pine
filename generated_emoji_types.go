@@ -1,27 +1,31 @@
 package pine
 
 var typeEmoji = map[msgType]string{
-	Info:      "💬",
 	Success:   "✅",
 	Warn:      "⚠️",
-	Error:     "🚨",
-	Timing:    "⏱",
-	WTF:       "👻",
 	Finish:    "🏁",
-	Terminate: "⛔️",
 	Spawn:     "✨",
+	Timing:    "⏱",
+	Info:      "💬",
+	Error:     "🚨",
+	Terminate: "⛔️",
 	Disk:      "💾",
+	WTF:       "👻",
+	Lock:      "🔒",
+	Secure:    "🔑",
 }
 
 var typeMap = map[msgType]string{
-	Spawn:     "Spawn",
+	Error:     "Error",
+	Terminate: "Terminate",
 	Disk:      "Disk",
 	WTF:       "WTF",
-	Finish:    "Finish",
-	Terminate: "Terminate",
-	Error:     "Error",
-	Timing:    "Timing",
-	Info:      "Info",
+	Lock:      "Lock",
+	Secure:    "Secure",
 	Success:   "Success",
 	Warn:      "Warn",
+	Finish:    "Finish",
+	Spawn:     "Spawn",
+	Timing:    "Timing",
+	Info:      "Info",
 }

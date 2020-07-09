@@ -39,31 +39,31 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestBasicFinish(t *testing.T) {
+func TestBasicError(t *testing.T) {
 	writer := pine.NewWriter("MRAjW")
-	writer.Finish("XVlBz %s", "gbaiC")
-	exp := generateExpectedOutput("MRAjW", "XVlBz gbaiC", "🏁", nil)
+	writer.Error("XVlBz %s", "gbaiC")
+	exp := generateExpectedOutput("MRAjW", "XVlBz gbaiC", "🚨", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
-func TestExtraFinish(t *testing.T) {
+func TestExtraError(t *testing.T) {
 	writer := pine.NewWriter("hxKQF")
-	writer.FinishExtra("DaFpL", "whTHc %s", "tcuAx")
+	writer.ErrorExtra("DaFpL", "whTHc %s", "tcuAx")
 	extraVal := "DaFpL"
-	exp := generateExpectedOutput("hxKQF", "whTHc tcuAx", "🏁", &extraVal)
+	exp := generateExpectedOutput("hxKQF", "whTHc tcuAx", "🚨", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
-func TestExtraWriterFinish(t *testing.T) {
+func TestExtraWriterError(t *testing.T) {
 	writer := pine.NewWriter("RsWxP")
 	ext := writer.WithExtra("LDnJO")
-	ext.Finish("SjFbc %s", "XoEFf")
+	ext.Error("SjFbc %s", "XoEFf")
 	extraVal := "LDnJO"
-	exp := generateExpectedOutput("RsWxP", "SjFbc XoEFf", "🏁", &extraVal)
+	exp := generateExpectedOutput("RsWxP", "SjFbc XoEFf", "🚨", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
@@ -99,241 +99,301 @@ func TestExtraWriterTerminate(t *testing.T) {
 	}
 }
 
-func TestBasicSpawn(t *testing.T) {
-	writer := pine.NewWriter("EkXBA")
-	writer.Spawn("krBEm %s", "fdzdc")
-	exp := generateExpectedOutput("EkXBA", "krBEm fdzdc", "✨", nil)
-	if lastOutput != exp {
-		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
-	}
-}
-
-func TestExtraSpawn(t *testing.T) {
-	writer := pine.NewWriter("TCoaN")
-	writer.SpawnExtra("atyyi", "kjQZL %s", "CtTMt")
-	extraVal := "atyyi"
-	exp := generateExpectedOutput("TCoaN", "kjQZL CtTMt", "✨", &extraVal)
-	if lastOutput != exp {
-		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
-	}
-}
-
-func TestExtraWriterSpawn(t *testing.T) {
-	writer := pine.NewWriter("Jrscc")
-	ext := writer.WithExtra("tNswY")
-	ext.Spawn("NKARe %s", "KJyiX")
-	extraVal := "tNswY"
-	exp := generateExpectedOutput("Jrscc", "NKARe KJyiX", "✨", &extraVal)
-	if lastOutput != exp {
-		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
-	}
-}
-
 func TestBasicDisk(t *testing.T) {
-	writer := pine.NewWriter("ozFZB")
-	writer.Disk("NsGRu %s", "ssVma")
-	exp := generateExpectedOutput("ozFZB", "NsGRu ssVma", "💾", nil)
+	writer := pine.NewWriter("EkXBA")
+	writer.Disk("krBEm %s", "fdzdc")
+	exp := generateExpectedOutput("EkXBA", "krBEm fdzdc", "💾", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraDisk(t *testing.T) {
-	writer := pine.NewWriter("nwTKS")
-	writer.DiskExtra("mVoiG", "sbOJi %s", "FQGZs")
-	extraVal := "mVoiG"
-	exp := generateExpectedOutput("nwTKS", "sbOJi FQGZs", "💾", &extraVal)
+	writer := pine.NewWriter("TCoaN")
+	writer.DiskExtra("atyyi", "kjQZL %s", "CtTMt")
+	extraVal := "atyyi"
+	exp := generateExpectedOutput("TCoaN", "kjQZL CtTMt", "💾", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWriterDisk(t *testing.T) {
-	writer := pine.NewWriter("updOM")
-	ext := writer.WithExtra("eRVja")
-	ext.Disk("LOpbU %s", "OpEdK")
-	extraVal := "eRVja"
-	exp := generateExpectedOutput("updOM", "LOpbU OpEdK", "💾", &extraVal)
+	writer := pine.NewWriter("Jrscc")
+	ext := writer.WithExtra("tNswY")
+	ext.Disk("NKARe %s", "KJyiX")
+	extraVal := "tNswY"
+	exp := generateExpectedOutput("Jrscc", "NKARe KJyiX", "💾", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestBasicWTF(t *testing.T) {
-	writer := pine.NewWriter("WKsXb")
-	writer.WTF("RzLNT %s", "XYeUC")
-	exp := generateExpectedOutput("WKsXb", "RzLNT XYeUC", "👻", nil)
+	writer := pine.NewWriter("ozFZB")
+	writer.WTF("NsGRu %s", "ssVma")
+	exp := generateExpectedOutput("ozFZB", "NsGRu ssVma", "👻", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWTF(t *testing.T) {
-	writer := pine.NewWriter("SJfjz")
-	writer.WTFExtra("aLbtZ", "GyRAO %s", "mBTvK")
-	extraVal := "aLbtZ"
-	exp := generateExpectedOutput("SJfjz", "GyRAO mBTvK", "👻", &extraVal)
+	writer := pine.NewWriter("nwTKS")
+	writer.WTFExtra("mVoiG", "sbOJi %s", "FQGZs")
+	extraVal := "mVoiG"
+	exp := generateExpectedOutput("nwTKS", "sbOJi FQGZs", "👻", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWriterWTF(t *testing.T) {
+	writer := pine.NewWriter("updOM")
+	ext := writer.WithExtra("eRVja")
+	ext.WTF("LOpbU %s", "OpEdK")
+	extraVal := "eRVja"
+	exp := generateExpectedOutput("updOM", "LOpbU OpEdK", "👻", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestBasicLock(t *testing.T) {
+	writer := pine.NewWriter("WKsXb")
+	writer.Lock("RzLNT %s", "XYeUC")
+	exp := generateExpectedOutput("WKsXb", "RzLNT XYeUC", "🔒", nil)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraLock(t *testing.T) {
+	writer := pine.NewWriter("SJfjz")
+	writer.LockExtra("aLbtZ", "GyRAO %s", "mBTvK")
+	extraVal := "aLbtZ"
+	exp := generateExpectedOutput("SJfjz", "GyRAO mBTvK", "🔒", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraWriterLock(t *testing.T) {
 	writer := pine.NewWriter("QMDQi")
 	ext := writer.WithExtra("YCOhg")
-	ext.WTF("syMGe %s", "uDtRz")
+	ext.Lock("syMGe %s", "uDtRz")
 	extraVal := "YCOhg"
-	exp := generateExpectedOutput("QMDQi", "syMGe uDtRz", "👻", &extraVal)
+	exp := generateExpectedOutput("QMDQi", "syMGe uDtRz", "🔒", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestBasicSecure(t *testing.T) {
+	writer := pine.NewWriter("JHYNu")
+	writer.Secure("HOvgS %s", "eycJP")
+	exp := generateExpectedOutput("JHYNu", "HOvgS eycJP", "🔑", nil)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraSecure(t *testing.T) {
+	writer := pine.NewWriter("uSqfg")
+	writer.SecureExtra("qVMkP", "fNjJh %s", "hjUVR")
+	extraVal := "qVMkP"
+	exp := generateExpectedOutput("uSqfg", "fNjJh hjUVR", "🔑", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraWriterSecure(t *testing.T) {
+	writer := pine.NewWriter("IZRgB")
+	ext := writer.WithExtra("myArK")
+	ext.Secure("YVkUR %s", "UpiFv")
+	extraVal := "myArK"
+	exp := generateExpectedOutput("IZRgB", "YVkUR UpiFv", "🔑", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestBasicSuccess(t *testing.T) {
-	writer := pine.NewWriter("JHYNu")
-	writer.Success("HOvgS %s", "eycJP")
-	exp := generateExpectedOutput("JHYNu", "HOvgS eycJP", "✅", nil)
+	writer := pine.NewWriter("BjMkX")
+	writer.Success("Ctzkj %s", "kZIva")
+	exp := generateExpectedOutput("BjMkX", "Ctzkj kZIva", "✅", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraSuccess(t *testing.T) {
-	writer := pine.NewWriter("uSqfg")
-	writer.SuccessExtra("qVMkP", "fNjJh %s", "hjUVR")
-	extraVal := "qVMkP"
-	exp := generateExpectedOutput("uSqfg", "fNjJh hjUVR", "✅", &extraVal)
+	writer := pine.NewWriter("xyALB")
+	writer.SuccessExtra("sdjSG", "VbWGv %s", "bqzge")
+	extraVal := "sdjSG"
+	exp := generateExpectedOutput("xyALB", "VbWGv bqzge", "✅", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWriterSuccess(t *testing.T) {
-	writer := pine.NewWriter("IZRgB")
-	ext := writer.WithExtra("myArK")
-	ext.Success("YVkUR %s", "UpiFv")
-	extraVal := "myArK"
-	exp := generateExpectedOutput("IZRgB", "YVkUR UpiFv", "✅", &extraVal)
+	writer := pine.NewWriter("IBuuf")
+	ext := writer.WithExtra("FMoWd")
+	ext.Success("pngCw %s", "FkDif")
+	extraVal := "FMoWd"
+	exp := generateExpectedOutput("IBuuf", "pngCw FkDif", "✅", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestBasicWarn(t *testing.T) {
-	writer := pine.NewWriter("BjMkX")
-	writer.Warn("Ctzkj %s", "kZIva")
-	exp := generateExpectedOutput("BjMkX", "Ctzkj kZIva", "⚠️", nil)
+	writer := pine.NewWriter("rTICT")
+	writer.Warn("iTskZ %s", "oQJMq")
+	exp := generateExpectedOutput("rTICT", "iTskZ oQJMq", "⚠️", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWarn(t *testing.T) {
-	writer := pine.NewWriter("xyALB")
-	writer.WarnExtra("sdjSG", "VbWGv %s", "bqzge")
-	extraVal := "sdjSG"
-	exp := generateExpectedOutput("xyALB", "VbWGv bqzge", "⚠️", &extraVal)
+	writer := pine.NewWriter("yfroR")
+	writer.WarnExtra("ODMbN", "ojIYx %s", "yeSxZ")
+	extraVal := "ODMbN"
+	exp := generateExpectedOutput("yfroR", "ojIYx yeSxZ", "⚠️", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWriterWarn(t *testing.T) {
-	writer := pine.NewWriter("IBuuf")
-	ext := writer.WithExtra("FMoWd")
-	ext.Warn("pngCw %s", "FkDif")
-	extraVal := "FMoWd"
-	exp := generateExpectedOutput("IBuuf", "pngCw FkDif", "⚠️", &extraVal)
-	if lastOutput != exp {
-		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
-	}
-}
-
-func TestBasicError(t *testing.T) {
-	writer := pine.NewWriter("rTICT")
-	writer.Error("iTskZ %s", "oQJMq")
-	exp := generateExpectedOutput("rTICT", "iTskZ oQJMq", "🚨", nil)
-	if lastOutput != exp {
-		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
-	}
-}
-
-func TestExtraError(t *testing.T) {
-	writer := pine.NewWriter("yfroR")
-	writer.ErrorExtra("ODMbN", "ojIYx %s", "yeSxZ")
-	extraVal := "ODMbN"
-	exp := generateExpectedOutput("yfroR", "ojIYx yeSxZ", "🚨", &extraVal)
-	if lastOutput != exp {
-		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
-	}
-}
-
-func TestExtraWriterError(t *testing.T) {
 	writer := pine.NewWriter("PMHDt")
 	ext := writer.WithExtra("JmHAY")
-	ext.Error("DRZnP %s", "NRWCJ")
+	ext.Warn("DRZnP %s", "NRWCJ")
 	extraVal := "JmHAY"
-	exp := generateExpectedOutput("PMHDt", "DRZnP NRWCJ", "🚨", &extraVal)
+	exp := generateExpectedOutput("PMHDt", "DRZnP NRWCJ", "⚠️", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestBasicFinish(t *testing.T) {
+	writer := pine.NewWriter("VgzHb")
+	writer.Finish("ORsUf %s", "UMAps")
+	exp := generateExpectedOutput("VgzHb", "ORsUf UMAps", "🏁", nil)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraFinish(t *testing.T) {
+	writer := pine.NewWriter("fFbbG")
+	writer.FinishExtra("Gcnqb", "lmYYt %s", "EjVgw")
+	extraVal := "Gcnqb"
+	exp := generateExpectedOutput("fFbbG", "lmYYt EjVgw", "🏁", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraWriterFinish(t *testing.T) {
+	writer := pine.NewWriter("XmZOt")
+	ext := writer.WithExtra("aRLUt")
+	ext.Finish("aEREu %s", "nUZjQ")
+	extraVal := "aRLUt"
+	exp := generateExpectedOutput("XmZOt", "aEREu nUZjQ", "🏁", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestBasicSpawn(t *testing.T) {
+	writer := pine.NewWriter("DvoxI")
+	writer.Spawn("mYgmS %s", "VYBAD")
+	exp := generateExpectedOutput("DvoxI", "mYgmS VYBAD", "✨", nil)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraSpawn(t *testing.T) {
+	writer := pine.NewWriter("IubeY")
+	writer.SpawnExtra("TNDtj", "fsfgP %s", "yCKmx")
+	extraVal := "TNDtj"
+	exp := generateExpectedOutput("IubeY", "fsfgP yCKmx", "✨", &extraVal)
+	if lastOutput != exp {
+		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
+	}
+}
+
+func TestExtraWriterSpawn(t *testing.T) {
+	writer := pine.NewWriter("Lpruc")
+	ext := writer.WithExtra("jiOgj")
+	ext.Spawn("AyRRD %s", "edMiy")
+	extraVal := "jiOgj"
+	exp := generateExpectedOutput("Lpruc", "AyRRD edMiy", "✨", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestBasicTiming(t *testing.T) {
-	writer := pine.NewWriter("VgzHb")
-	writer.Timing("ORsUf %s", "UMAps")
-	exp := generateExpectedOutput("VgzHb", "ORsUf UMAps", "⏱", nil)
+	writer := pine.NewWriter("frDGX")
+	writer.Timing("hYeVw %s", "BTCML")
+	exp := generateExpectedOutput("frDGX", "hYeVw BTCML", "⏱", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraTiming(t *testing.T) {
-	writer := pine.NewWriter("fFbbG")
-	writer.TimingExtra("Gcnqb", "lmYYt %s", "EjVgw")
-	extraVal := "Gcnqb"
-	exp := generateExpectedOutput("fFbbG", "lmYYt EjVgw", "⏱", &extraVal)
+	writer := pine.NewWriter("cLVCx")
+	writer.TimingExtra("aSJlD", "qwpzw %s", "VGqMZ")
+	extraVal := "aSJlD"
+	exp := generateExpectedOutput("cLVCx", "qwpzw VGqMZ", "⏱", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWriterTiming(t *testing.T) {
-	writer := pine.NewWriter("XmZOt")
-	ext := writer.WithExtra("aRLUt")
-	ext.Timing("aEREu %s", "nUZjQ")
-	extraVal := "aRLUt"
-	exp := generateExpectedOutput("XmZOt", "aEREu nUZjQ", "⏱", &extraVal)
+	writer := pine.NewWriter("qkKHq")
+	ext := writer.WithExtra("gBpnb")
+	ext.Timing("SYEof %s", "kkEYe")
+	extraVal := "gBpnb"
+	exp := generateExpectedOutput("qkKHq", "SYEof kkEYe", "⏱", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestBasicInfo(t *testing.T) {
-	writer := pine.NewWriter("DvoxI")
-	writer.Info("mYgmS %s", "VYBAD")
-	exp := generateExpectedOutput("DvoxI", "mYgmS VYBAD", "💬", nil)
+	writer := pine.NewWriter("UMmpB")
+	writer.Info("PbgHM %s", "LUIDj")
+	exp := generateExpectedOutput("UMmpB", "PbgHM LUIDj", "💬", nil)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraInfo(t *testing.T) {
-	writer := pine.NewWriter("IubeY")
-	writer.InfoExtra("TNDtj", "fsfgP %s", "yCKmx")
-	extraVal := "TNDtj"
-	exp := generateExpectedOutput("IubeY", "fsfgP yCKmx", "💬", &extraVal)
+	writer := pine.NewWriter("aiIsN")
+	writer.InfoExtra("BakqS", "HCSjM %s", "Jjxzu")
+	extraVal := "BakqS"
+	exp := generateExpectedOutput("aiIsN", "HCSjM Jjxzu", "💬", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}
 }
 
 func TestExtraWriterInfo(t *testing.T) {
-	writer := pine.NewWriter("Lpruc")
-	ext := writer.WithExtra("jiOgj")
-	ext.Info("AyRRD %s", "edMiy")
-	extraVal := "jiOgj"
-	exp := generateExpectedOutput("Lpruc", "AyRRD edMiy", "💬", &extraVal)
+	writer := pine.NewWriter("aczAI")
+	ext := writer.WithExtra("nLqLI")
+	ext.Info("wQpOQ %s", "gNczg")
+	extraVal := "nLqLI"
+	exp := generateExpectedOutput("aczAI", "wQpOQ gNczg", "💬", &extraVal)
 	if lastOutput != exp {
 		t.Errorf("Failed. Expectation was %s, got instead %s", exp, lastOutput)
 	}

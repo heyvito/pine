@@ -1,14 +1,16 @@
 package pine
 
 const (
-	Error msgType = iota
+	Warn msgType = iota
+	Finish
+	Spawn
 	Timing
 	Info
 	Success
-	Warn
-	Spawn
+	Terminate
 	Disk
 	WTF
-	Finish
-	Terminate
+	Lock
+	Secure
+	Error
 )
