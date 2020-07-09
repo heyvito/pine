@@ -35,70 +35,64 @@ emoji. The following methods (and their emojis) are available:
 
 |  Method   | Emoji |
 |-----------|-------|
-| OK        |   ✅  |
-| Warn      |   ⚠️  |
-| Issue     |   🐛  |
-| Error     |   🚨  |
-| Input     |   🔺  |
-| Output    |   🔻  |
-| Send      |   📤  |
-| Receive   |   📥  |
-| Fetch     |   📡  |
-| Finish    |   🏁  |
-| Launch    |   🚀  |
-| Terminate |   ⛔️  |
-| Spawn     |   ✨  |
-| Broadcast |   📣  |
-| Disk      |   💾  |
-| Timing    |   ⏱  |
-| Money     |   💰  |
-| Numbers   |   🔢  |
-| WTF       |   👻  |
-| Info      |   💬  |
-| Lock      |   🔒  |
-| Secure    |   🔑  |
+| Bug       |  🐞  |
+| Disk      |  📀  |
+| Error     |  🛑  |
+| Finish    |  🆗  |
+| Info      |  💬  |
+| Lock      |  🔒  |
+| Plug      |  🔌  |
+| Secure    |  🔑  |
+| Sleep     |  💤  |
+| Spawn     |  ✨  |
+| Success   |  🟢  |
+| Terminate |  ⭕  |
+| Thread    |  🧵  |
+| Timing    |  ⏱  |
+| Warn      |  🟡  |
+| WTF       |  👻  |
 
 For instance, the following snippet:
 
 ```go
 logger := pine.NewWriter("ModuleName")
 logger.WTF("What is going %s?", "on")
-logger.Numbers("Even more logging!")
+logger.Success("Even more logging!")
 ```
 Yields the following log line:
 
 ```
 18:27:38 👻  ModuleName What is going on?
-18:27:38 🔢  ModuleName Even more logging!
+18:27:38 🟢  ModuleName Even more logging!
 ```
 
 Every logging method has an extra method that prefixes a message with extra data:
 
 ```go
-logger.LaunchExtra("Extra Data!", "A cute formatted %s", "message")
+logger.PlugExtra("Extra Data!", "A cute formatted %s", "message")
 ```
 
 Yielding the following line:
 
 ```
-18:27:38 🚀  ModuleName Extra Data! A cute formatted message
+18:27:38 🔌  ModuleName Extra Data! A cute formatted message
 ```
 
 As you may think, it is quite boring to repetitively include the `extra` parameter
-and keep calling `LaunchWithExtra` all the time. For those cases, you can call `WithExtra`,
+and keep calling `PlugWithExtra` all the time. For those cases, you can call `WithExtra`,
 that attaches the provided data to the next log calls. For instance, take the following snippet:
 
 ```go
 extraLogger := logger.WithExtra("Attached data")
-extraLogger.Launch("Another sweet %s", "message")
+extraLogger.Plug("Another sweet %s", "message")
 extraLogger.Finish("Process completed.")
 ```
 
 Yielding, then, the following result:
 
 ```
-18:27:38 🚀  ModuleName Attached data Another sweet message
-18:18:38 🏁  ModuleName Attached data Process completed.
+18:27:38 🔌  ModuleName Attached data Another sweet message
+18:18:38 🆗  ModuleName Attached data Process completed.
 ```
 
 ## License
